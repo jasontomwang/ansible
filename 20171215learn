@@ -17,3 +17,8 @@ ansible host1 -m setup
 ansible all -m setup -a 'filter=ansible_all_ipv4_addresses'
 ansible host1 -m facter
 ansible host1 -m ohai
+ansible-playbook site.yml --syntax-check
+ansible-playbook site.yml --list-task
+ansible-playbook site.yml --list-hosts
+ansible-playbook site.yml -f 3
+ansible-playbook site.yml -f 3 --step
