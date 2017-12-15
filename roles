@@ -1,0 +1,10 @@
+ansible roles learn
+.├── roles│ 
+ │        └── nginx│       
+ │                 ├── files       
+ │                 ├── handlers│       
+ │                 ├── tasks│       
+ │                 ├── templates│       
+ │                 └── vars
+ └── site.yaml
+ 
