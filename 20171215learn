@@ -1,4 +1,16 @@
- 
+ ---------------------------------------------------------------------------
+ /etc/ansible/hosts
+ host1
+ host2
+ host3
+ [webservers]
+ host1
+ [docker]
+ host3
+ [docker:children]
+ webservers
+ -------------------------------------------------------------------------------
 echo ansible | openssl passwd -1 -stdin
 ansible all -m user -a 'name=shencan password="$1$JRFhBmGW$Ffl77dMFIc4Pr4BOJ1QgU0"' -o
 ansible all -m apt -a 'name=nginx state=latest update_cache=true'
+ansible host1 -m setup
