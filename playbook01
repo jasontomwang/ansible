@@ -1,0 +1,44 @@
+---
+- host: host2
+  remote_user: root
+  sudo: yes
+  sudo_user: yadmin
+  gather_facts: no
+  accelerate: no
+  accelerate_port: 5099
+  max_fail_percentage: 30
+  connection: local
+  serial: 15
+  vars:
+    nginx_port: 80
+  vars_files:
+    - "vars.yml"'
+    - [ "one.yml","two,yml" ]
+  vars_prompt:
+    - name: "password vaes"
+        prompt: "Enter password"
+        default: "secret"
+        private: yes
+        encrypt: "md5_crypt"
+        confirm: yes
+        salt: 1234
+        salt_size: 8
+  pre_tasks:
+    - name: pre_tasks
+        shell: hostname
+  roles:
+    - docker
+    - { role: docker,version: '1.5.0', when: "ansible_system == 'Linux'", tags :[docker,install]}
+    - { role: docker, when:  ansible_all_ipv4_address == '10.0.3.3' }
+  tasks:
+    - include: tasks.yaml
+    - include: tasks.yaml ansible_distribution='CentOS' ansible_distribution_version='6.6'
+    - { include: tasks.yaml, version: '1.1', package: [nginx,httpd]}
+    - include: tasks_10.0.3.3.yaml
+        when: ansible_all_ipv4_addresses == '10.0.3.3'
+  post_tasks:
+    - name: post_tasks
+      shell: hostname
+  handlers:
+    - include: handlers.yml
+    
