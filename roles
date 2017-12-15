@@ -28,3 +28,17 @@ roles/nginx/tasks/main.yaml
 -name: make sure nginx service running   
    service: name=nginx state=started
 ------------------------------------------------
+roles/nginx/handlers/main.yaml
+-------------------------------------------------
+---
+-name: restart nginx   
+   service: name=nginx state=restarted
+--------------------------------------------------
+roles/nginx/templates/nginx.conf.j2
+-------------------------------------------------------
+worker_process {{ ansible_processor_cores }};
+-------------------------------------------------------
+ roles/nginx/files/index.html
+ ---------------------------------------
+ hello kugou
+ ----------------------------------------------
