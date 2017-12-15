@@ -8,3 +8,23 @@ ansible roles learn
  │                 └── vars
  └── site.yaml
  
+site.yaml
+-----------------------------------------------
+---
+- hosts: host1  
+    roles:      
+      - { role: nginx, version: 1.0.15}
+------------------------------------------------      
+roles/nginx/tasks/main.yaml
+---------------------------------------------------
+---
+-name: Install nginx package   
+   apt: name=nginx-{{ version }} state=present
+-name: Copy nginx.conf Template   
+   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root backup=yes mode=0644   
+   notify: restart nginx
+-name: Copy index html   
+   copy: src=index.html dest=/user/share/nginx/html/index.html owner=root group=root backup=yes mode=0644
+-name: make sure nginx service running   
+   service: name=nginx state=started
+------------------------------------------------
