@@ -1,0 +1,3 @@
+ 
+echo ansible | openssl passwd -1 -stdin
+ansible all -m user -a 'name=shencan password="$1$JRFhBmGW$Ffl77dMFIc4Pr4BOJ1QgU0"' -o
