@@ -18,21 +18,21 @@ site.yaml
 roles/nginx/tasks/main.yaml
 ---------------------------------------------------
 ---
--name: Install nginx package   
-   apt: name=nginx-{{ version }} state=present
--name: Copy nginx.conf Template   
-   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root backup=yes mode=0644   
-   notify: restart nginx
--name: Copy index html   
-   copy: src=index.html dest=/user/share/nginx/html/index.html owner=root group=root backup=yes mode=0644
--name: make sure nginx service running   
-   service: name=nginx state=started
+- name: Install nginx package   
+  apt: name=nginx state=present
+- name: Copy nginx.conf Template   
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root backup=yes mode=0644   
+  notify: restart nginx
+- name: Copy index html   
+  copy: src=index.html dest=/usr/share/nginx/html/index.html owner=root group=root backup=yes mode=0644
+- name: make sure nginx service running   
+  service: name=nginx state=started
 ------------------------------------------------
 roles/nginx/handlers/main.yaml
 -------------------------------------------------
 ---
--name: restart nginx   
-   service: name=nginx state=restarted
+- name: restart nginx   
+  service: name=nginx state=restarted
 --------------------------------------------------
 roles/nginx/templates/nginx.conf.j2
 -------------------------------------------------------
