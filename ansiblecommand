@@ -1,0 +1,9 @@
+ansible -i /etc/ansible/hosts all -m command -a "date"
+ansible websrv01, -m command -a "date"
+ansible-playbook -i /etc/ansible/hosts common_task.yaml
+---------------------------------------------------------------------
+#### ansible include use
+- name: Include the file only for Red Hat OSes
+include: redhat.yaml
+when: ansible_os_family == "RedHat"
+---------------------------------------------------------------------
